@@ -10,13 +10,13 @@ public class TableInfo {
 	public int id;
 
 	/**
-	 * 玩家1信息
+	 * 玩家1信息<br>
 	 * 若空表示无玩家1
 	 */
 	public PlayerInfo player1;
 
 	/**
-	 * 玩家2信息
+	 * 玩家2信息<br>
 	 * 若空表示无玩家2
 	 */
 	public PlayerInfo player2;

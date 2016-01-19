@@ -8,11 +8,11 @@ import java.net.Socket;
 import java.util.Scanner;
 
 /**
- * 原始业务类，安卓客户端业务类和PC客户端业务类基于其实现
- * 与服务器使用TCP协议通信
+ * 原始业务类，安卓客户端业务类和PC客户端业务类基于其实现<br>
+ * 与服务器使用TCP协议通信<br>
  * 每次通信都是发送或接收一行规定格式的字符串
  */
-public abstract class OriginalInterface {
+public abstract class OriginInterface {
 
 	/**
 	 * 服务器地址
@@ -41,7 +41,7 @@ public abstract class OriginalInterface {
 	 * @param port
 	 * 服务器端口
 	 */
-	public OriginalInterface(InetAddress inetAddress, int port){
+	public OriginInterface(InetAddress inetAddress, int port){
 		this.inetAddress = inetAddress;
 		this.port = port;
 	}
@@ -96,7 +96,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 请求注册
+	 * 请求注册<br>
 	 * 向服务器发送 REGISTER#用户名#密码
 	 * @param username
 	 * 用户名
@@ -114,7 +114,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 请求登陆
+	 * 请求登陆<br>
 	 * 向服务器发送 LOGIN#用户名#密码
 	 * @param username
 	 * 用户名
@@ -128,7 +128,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 请求所有游戏桌状态
+	 * 请求所有游戏桌状态<br>
 	 * 向服务器发送 GET_TABLES
 	 */
 	final public void getTables(){
@@ -136,7 +136,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 请求进入游戏桌
+	 * 请求进入游戏桌<br>
 	 * 向服务器发送 ENTER_TABLES#游戏桌编号
 	 * @param tableId
 	 * 游戏桌编号
@@ -146,7 +146,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 请求举手
+	 * 请求举手<br>
 	 * 向服务器发送 HAND_UP
 	 */
 	final public void handUp(){
@@ -154,7 +154,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 请求落子
+	 * 请求落子<br>
 	 * 向服务器发送 MOVE#行#列
 	 * @param raw
 	 * 行
@@ -166,7 +166,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 请求认输
+	 * 请求认输<br>
 	 * 向服务器发送 GIVE_UP
 	 */
 	final public void giveUp(){
@@ -174,7 +174,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 请求悔棋
+	 * 请求悔棋<br>
 	 * 向服务器发送 RETRACT
 	 */
 	final public void retract(){
@@ -182,7 +182,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 响应对手悔棋
+	 * 响应对手悔棋<br>
 	 * 向服务器发送 RESPOND_RETRACT#是否同意
 	 * @param ifAgree
 	 * 是否同意
@@ -192,7 +192,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 发送消息
+	 * 发送消息<br>
 	 * 向服务器发送 SEND_MESSAGE#消息内容
 	 * @param message
 	 * 消息内容
@@ -202,7 +202,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 请求退出游戏桌
+	 * 请求退出游戏桌<br>
 	 * 向服务器发送 QUIT_TABLE
 	 */
 	final public void quitTable(){
@@ -210,7 +210,7 @@ public abstract class OriginalInterface {
 	}
 
 	/**
-	 * 当收到注册响应
+	 * 当收到注册响应<br>
 	 * 服务器返回 ON_RESPOND_REGISTER#是否注册成功#注册失败的原因
 	 * @param ifRegistered
 	 * 是否注册成功
@@ -234,7 +234,7 @@ public abstract class OriginalInterface {
 	abstract public void onLostConnection(String reason);
 
 	/**
-	 * 当收到登陆响应
+	 * 当收到登陆响应<br>
 	 * 服务器返回 ON_RESPOND_LOGIN#是否登陆成功#玩家的分数
 	 * @param ifLogined
 	 * 是否登陆成功
@@ -244,7 +244,7 @@ public abstract class OriginalInterface {
 	abstract public void onRespondLogin(boolean ifLogined, int score);
 
 	/**
-	 * 当收到请求各游戏桌状态响应
+	 * 当收到请求各游戏桌状态响应<br>
 	 * 服务器返回
 	 * TODO:得先把Table类写好
 	 * @param tableInfos
@@ -253,7 +253,7 @@ public abstract class OriginalInterface {
 	abstract public void onRespondGetTables(TableInfo[] tableInfos);
 
 	/**
-	 * 当收到请求进入游戏桌响应
+	 * 当收到请求进入游戏桌响应<br>
 	 * 服务器返回 ON_RESPOND_ENTER_TABLE#游戏桌编号#是否进入游戏桌#进入失败的原因
 	 * @param tableId
 	 * 游戏桌编号
@@ -265,7 +265,7 @@ public abstract class OriginalInterface {
 	abstract public void onRespondEnterTable(int tableId, boolean ifEntered, String reason);
 
 	/**
-	 * 当所在游戏桌状态变化
+	 * 当所在游戏桌状态变化<br>
 	 * 服务器返回
 	 * TODO:得先把PlayerInfo写好
 	 * @param opponentInfo
@@ -292,7 +292,7 @@ public abstract class OriginalInterface {
 	                                   boolean isMyTurn);
 
 	/**
-	 * 当游戏结束
+	 * 当游戏结束<br>
 	 * 服务器返回 ON_GAME_OVER#是否是平局#是否是自己赢#是否是某一方认输
 	 * @param isDraw
 	 * 是否是平局
@@ -304,7 +304,7 @@ public abstract class OriginalInterface {
 	abstract public void onGameOver(boolean isDraw, boolean ifWin, boolean ifGiveUp);
 
 	/**
-	 * 当收到请求悔棋响应
+	 * 当收到请求悔棋响应<br>
 	 * 服务器返回 ON_RESPOND_RETRACT#ifAgree
 	 * @param ifAgree
 	 * 对手是否同意悔棋，若同意，会随后收到onBoardChange
@@ -312,13 +312,13 @@ public abstract class OriginalInterface {
 	abstract public void onRespondRetract(boolean ifAgree);
 
 	/**
-	 * 当收到对手请求悔棋
+	 * 当收到对手请求悔棋<br>
 	 * 服务器返回 ON_OPPONENT_RETRACT
 	 */
 	abstract public void onOpponentRetract();
 
 	/**
-	 * 当收到消息
+	 * 当收到消息<br>
 	 * 服务器返回 ON_RECEIVE_MESSAGE#消息内容
 	 * @param message
 	 * 消息内容
@@ -326,7 +326,7 @@ public abstract class OriginalInterface {
 	abstract public void onReceiveMessage(String message);
 
 	/**
-	 * 当请求退出游戏桌响应
+	 * 当请求退出游戏桌响应<br>
 	 * 服务器返回 ON_RESPOND_QUIT_TABLE#退出游戏桌是否成功
 	 * @param ifAgree
 	 * 退出游戏桌是否成功
