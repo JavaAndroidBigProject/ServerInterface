@@ -293,13 +293,15 @@ public abstract class OriginalInterface {
 
 	/**
 	 * 当游戏结束
-	 * 服务器返回 ON_GAME_OVER#是否是自己赢#是否是某一方认输
+	 * 服务器返回 ON_GAME_OVER#是否是平局#是否是自己赢#是否是某一方认输
+	 * @param isDraw
+	 * 是否是平局
 	 * @param ifWin
 	 * 是否是自己赢
 	 * @param ifGiveUp
 	 * 是否是某一方认输
 	 */
-	abstract public void onGameOver(boolean ifWin, boolean ifGiveUp);
+	abstract public void onGameOver(boolean isDraw, boolean ifWin, boolean ifGiveUp);
 
 	/**
 	 * 当收到请求悔棋响应
