@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * 原始业务类，安卓客户端业务类和PC客户端业务类基于其实现
@@ -56,6 +57,21 @@ public abstract class OriginalInterface {
 		try {
 			socket = new Socket(inetAddress, port);
 			printStream = new PrintStream(socket.getOutputStream());
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Scanner scanner = new Scanner(socket.getInputStream());
+						while(scanner.hasNext()){
+							//TODO:处理服务器返回的信息
+							
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+						onLostConnection(e.getMessage());
+					}
+				}
+			}).start();
 		} catch (IOException e) {
 			e.printStackTrace();
 			onConnectionFail(e.getMessage());
@@ -195,6 +211,7 @@ public abstract class OriginalInterface {
 
 	/**
 	 * 当收到注册响应
+	 * 服务器返回 ON_RESPOND_REGISTER#是否注册成功#注册失败的原因
 	 * @param ifRegistered
 	 * 是否注册成功
 	 * @param reason
@@ -218,6 +235,7 @@ public abstract class OriginalInterface {
 
 	/**
 	 * 当收到登陆响应
+	 * 服务器返回 ON_RESPOND_LOGIN#是否登陆成功#玩家的分数
 	 * @param ifLogined
 	 * 是否登陆成功
 	 * @param score
@@ -227,6 +245,8 @@ public abstract class OriginalInterface {
 
 	/**
 	 * 当收到请求各游戏桌状态响应
+	 * 服务器返回
+	 * TODO:得先把Table类写好
 	 * @param tables
 	 * 各游戏桌状态
 	 */
@@ -234,6 +254,7 @@ public abstract class OriginalInterface {
 
 	/**
 	 * 当收到请求进入游戏桌响应
+	 * 服务器返回 ON_RESPOND_ENTER_TABLE#游戏桌编号#是否进入游戏桌#进入失败的原因
 	 * @param tableId
 	 * 游戏桌编号
 	 * @param ifEntered
@@ -245,6 +266,8 @@ public abstract class OriginalInterface {
 
 	/**
 	 * 当所在游戏桌状态变化
+	 * 服务器返回
+	 * TODO:得先把PlayerInfo写好
 	 * @param opponentInfo
 	 * 对手信息
 	 * @param ifMyHandUp
@@ -270,6 +293,7 @@ public abstract class OriginalInterface {
 
 	/**
 	 * 当游戏结束
+	 * 服务器返回 ON_GAME_OVER#是否是自己赢#是否是某一方认输
 	 * @param ifWin
 	 * 是否是自己赢
 	 * @param ifGiveUp
@@ -279,6 +303,7 @@ public abstract class OriginalInterface {
 
 	/**
 	 * 当收到请求悔棋响应
+	 * 服务器返回 ON_RESPOND_RETRACT#ifAgree
 	 * @param ifAgree
 	 * 对手是否同意悔棋，若同意，会随后收到onBoardChange
 	 */
@@ -286,11 +311,13 @@ public abstract class OriginalInterface {
 
 	/**
 	 * 当收到对手请求悔棋
+	 * 服务器返回 ON_OPPONENT_RETRACT
 	 */
 	abstract public void onOpponentRetract();
 
 	/**
 	 * 当收到消息
+	 * 服务器返回 ON_RECEIVE_MESSAGE#消息内容
 	 * @param message
 	 * 消息内容
 	 */
@@ -298,6 +325,7 @@ public abstract class OriginalInterface {
 
 	/**
 	 * 当请求退出游戏桌响应
+	 * 服务器返回 ON_RESPOND_QUIT_TABLE#退出游戏桌是否成功
 	 * @param ifAgree
 	 * 退出游戏桌是否成功
 	 */
