@@ -247,10 +247,10 @@ public abstract class OriginalInterface {
 	 * 当收到请求各游戏桌状态响应
 	 * 服务器返回
 	 * TODO:得先把Table类写好
-	 * @param tables
+	 * @param tableInfos
 	 * 各游戏桌状态
 	 */
-	abstract public void onRespondGetTables(Table[] tables);
+	abstract public void onRespondGetTables(TableInfo[] tableInfos);
 
 	/**
 	 * 当收到请求进入游戏桌响应

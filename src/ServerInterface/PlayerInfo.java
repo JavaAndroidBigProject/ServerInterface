@@ -1,7 +1,7 @@
 package ServerInterface;
 
 /**
- * Created by Jason Song(wolfogre@outlook.com) on 01/10/2016.
+ * 玩家信息
  */
 public class PlayerInfo {
 }
