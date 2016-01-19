@@ -1,104 +1,196 @@
 package ServerInterface;
 
 
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.Socket;
+
 /**
- * Created by Jason Song(wolfogre@outlook.com) on 01/10/2016.
+ * 原始业务类，安卓客户端业务类和PC客户端业务类基于其实现
+ * 与服务器使用TCP协议通信
+ * 每次通信都是发送或接收一行规定格式的字符串
  */
 public abstract class OriginalInterface {
 
 	/**
+	 * 服务器地址
+	 */
+	private InetAddress inetAddress;
+
+	/**
+	 * 服务器端口
+	 */
+	private int port;
+
+	/**
+	 * 套接字
+	 */
+	private Socket socket;
+
+	/**
+	 * 套接字输出流
+	 */
+	private PrintStream printStream;
+
+	/**
+	 * 构造函数
+	 * @param inetAddress
+	 * 服务器地址
+	 * @param port
+	 * 服务器端口
+	 */
+	public OriginalInterface(InetAddress inetAddress, int port){
+		this.inetAddress = inetAddress;
+		this.port = port;
+	}
+
+	/**
+	 * 连接服务器
+	 * @return
+	 * 是否连接成功
+	 */
+	private boolean connect(){
+		if(socket != null && socket.isConnected())
+			return true;
+		try {
+			socket = new Socket(inetAddress, port);
+			printStream = new PrintStream(socket.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+			onConnectionFail(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 写字符串进套接字
+	 * @param string
+	 * 字符串
+	 */
+	private void writeInSocket(String string){
+		try{
+			printStream.println(string);
+			printStream.flush();
+		}catch (Exception e){
+			e.printStackTrace();
+			onLostConnection(e.getMessage());
+		}
+	}
+
+	/**
 	 * 请求注册
+	 * 向服务器发送 REGISTER#用户名#密码
 	 * @param username
 	 * 用户名
 	 * @param password
 	 * 密码
 	 */
 	final public void register(String username, String password){
-		//TODO
+		if(username.contains("#") || password.contains("#")){
+			onRespondRegister(false,"用户名和密码不得含有#");
+			return;
+		}
+		if(!connect())
+			return;
+		writeInSocket("REGISTER#" + username + "#" +password);
 	}
 
 	/**
 	 * 请求登陆
+	 * 向服务器发送 LOGIN#用户名#密码
 	 * @param username
 	 * 用户名
 	 * @param password
 	 * 密码
 	 */
 	final public void login(String username, String password){
-		//TODO
+		if(!connect())
+			return;
+		writeInSocket("LOGIN#" + username + "#" +password);
 	}
 
 	/**
 	 * 请求所有游戏桌状态
+	 * 向服务器发送 GET_TABLES
 	 */
 	final public void getTables(){
-		//TODO
+		writeInSocket("GET_TABLES");
 	}
 
 	/**
 	 * 请求进入游戏桌
+	 * 向服务器发送 ENTER_TABLES#游戏桌编号
 	 * @param tableId
 	 * 游戏桌编号
 	 */
 	final public void enterTable(int tableId){
-		//TODO
+		writeInSocket("ENTER_TABLES#" + tableId);
 	}
 
 	/**
 	 * 请求举手
+	 * 向服务器发送 HAND_UP
 	 */
 	final public void handUp(){
-		//TODO
+		writeInSocket("HAND_UP");
 	}
 
 	/**
 	 * 请求落子
+	 * 向服务器发送 MOVE#行#列
 	 * @param raw
 	 * 行
 	 * @param col
 	 * 列
 	 */
 	final public void move(int raw, int col){
-		//TODO
+		writeInSocket("MOVE#" + raw + "#" + col);
 	}
 
 	/**
 	 * 请求认输
+	 * 向服务器发送 GIVE_UP
 	 */
 	final public void giveUp(){
-		//TODO
+		writeInSocket("GIVE_UP");
 	}
 
 	/**
 	 * 请求悔棋
+	 * 向服务器发送 RETRACT
 	 */
 	final public void retract(){
-		//TODO
+		writeInSocket("RETRACT");
 	}
 
 	/**
 	 * 响应对手悔棋
+	 * 向服务器发送 RESPOND_RETRACT#是否同意
 	 * @param ifAgree
 	 * 是否同意
 	 */
 	final public void respondRetract(boolean ifAgree){
-		//TODO
+		writeInSocket("RESPOND_RETRACT#" + ifAgree);
 	}
 
 	/**
 	 * 发送消息
+	 * 向服务器发送 SEND_MESSAGE#消息内容
 	 * @param message
 	 * 消息内容
 	 */
 	final public void sengMessage(String message){
-		//TODO
+		writeInSocket("SEND_MESSAGE#" + message);
 	}
 
 	/**
 	 * 请求退出游戏桌
+	 * 向服务器发送 QUIT_TABLE
 	 */
 	final public void quitTable(){
-		//TODO
+		writeInSocket("QUIT_TABLE");
 	}
 
 	/**
