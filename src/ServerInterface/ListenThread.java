@@ -1,10 +1,7 @@
 package ServerInterface;
 
-import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
-import java.util.function.BooleanSupplier;
 
 /**
  * 监听服务器消息的线程

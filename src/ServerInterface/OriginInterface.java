@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.Scanner;
 
 /**
  * 原始业务类，安卓客户端业务类和PC客户端业务类基于其实现<br>
@@ -97,7 +96,7 @@ public abstract class OriginInterface {
 	 */
 	final public void register(String username, String password){
 		if(username.contains("#") || password.contains("#")){
-			onRespondRegister(false,"用户名和密码不得含有#");
+			onRespondRegister(false,"用户名和密码不得含有#或$");
 			return;
 		}
 		if(!connect())
