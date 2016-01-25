@@ -35,6 +35,11 @@ public abstract class OriginInterface {
 	private PrintStream printStream;
 
 	/**
+	 * 监听服务器消息线程
+	 */
+	private ListenThread listenThread;
+
+	/**
 	 * 构造函数
 	 * @param inetAddress
 	 * 服务器地址
@@ -57,26 +62,13 @@ public abstract class OriginInterface {
 		try {
 			socket = new Socket(inetAddress, port);
 			printStream = new PrintStream(socket.getOutputStream());
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						Scanner scanner = new Scanner(socket.getInputStream());
-						while(scanner.hasNext()){
-							//TODO:处理服务器返回的信息
-							
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-						onLostConnection(e.getMessage());
-					}
-				}
-			}).start();
 		} catch (IOException e) {
 			e.printStackTrace();
 			onConnectionFail(e.getMessage());
 			return false;
 		}
+		listenThread = new ListenThread(socket, this);
+		listenThread.start();
 		return true;
 	}
 
@@ -198,6 +190,10 @@ public abstract class OriginInterface {
 	 * 消息内容
 	 */
 	final public void sengMessage(String message){
+		if(message.contains("#")){
+			onReceiveMessage("[系统提示]消息中不得含有#.");
+			return;
+		}
 		writeInSocket("SEND_MESSAGE#" + message);
 	}
 
@@ -245,7 +241,7 @@ public abstract class OriginInterface {
 
 	/**
 	 * 当收到请求各游戏桌状态响应<br>
-	 * 服务器返回
+	 * 服务器返回 ON_RESPOND_GET_TABLES#还没想好
 	 * TODO:得先把Table类写好
 	 * @param tableInfos
 	 * 各游戏桌状态
@@ -266,7 +262,7 @@ public abstract class OriginInterface {
 
 	/**
 	 * 当所在游戏桌状态变化<br>
-	 * 服务器返回
+	 * 服务器返回 ON_TABLE_CHANGE#还没想好
 	 * TODO:得先把PlayerInfo写好
 	 * @param opponentInfo
 	 * 对手信息
