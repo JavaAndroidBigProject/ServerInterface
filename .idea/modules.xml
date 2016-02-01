@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ServerInterface.iml" filepath="$PROJECT_DIR$/ServerInterface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GobangSandbox/GobangSandbox.iml" filepath="$PROJECT_DIR$/GobangSandbox/GobangSandbox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ServerInterface/ServerInterface.iml" filepath="$PROJECT_DIR$/ServerInterface/ServerInterface.iml" />
     </modules>
   </component>
 </project>
