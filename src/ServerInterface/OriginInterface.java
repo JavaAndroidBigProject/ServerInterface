@@ -246,8 +246,7 @@ public abstract class OriginInterface {
 
 	/**
 	 * 当收到请求各游戏桌状态响应<br>
-	 * 服务器返回 ON_RESPOND_GET_TABLES#还没想好
-	 * TODO:得先把Table类写好
+	 * 服务器返回 ON_RESPOND_GET_TABLES#由TableInfo.tableInfoArrayToString()生成的字符串
 	 * @param tableInfos
 	 * 各游戏桌状态
 	 */
@@ -268,7 +267,7 @@ public abstract class OriginInterface {
 	/**
 	 * 当所在游戏桌状态变化<br>
 	 * 服务器返回 ON_TABLE_CHANGE#还没想好
-	 * TODO:得先把PlayerInfo写好
+	 * TODO:还没想好
 	 * @param opponentInfo
 	 * 对手信息
 	 * @param ifMyHandUp
