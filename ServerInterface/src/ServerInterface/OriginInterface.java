@@ -151,13 +151,13 @@ public abstract class OriginInterface {
 	/**
 	 * 请求落子<br>
 	 * 向服务器发送 MOVE#行#列
-	 * @param raw
+	 * @param row
 	 * 行
 	 * @param col
 	 * 列
 	 */
-	final public void move(int raw, int col){
-		writeInSocket("MOVE#" + raw + "#" + col);
+	final public void move(int row, int col){
+		writeInSocket("MOVE#" + row + "#" + col);
 	}
 
 	/**
