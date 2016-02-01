@@ -25,7 +25,7 @@ class ListenThread extends Thread{
 						originInterface.onRespondRegister(Boolean.parseBoolean(commands[1]), commands[2]);
 						break;
 					case "ON_RESPOND_LOGIN":
-						originInterface.onRespondLogin(Boolean.parseBoolean(commands[1]), Integer.parseInt(commands[2]));
+						originInterface.onRespondLogin(Boolean.parseBoolean(commands[1]), Integer.parseInt(commands[2]), commands[3]);
 						break;
 					case "ON_RESPOND_GET_TABLES":
 						//originInterface.onRespondGetTables();

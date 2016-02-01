@@ -95,7 +95,7 @@ public abstract class OriginInterface {
 	 * 密码
 	 */
 	final public void register(String username, String password){
-		if(username.contains("#") || password.contains("#")){
+		if(username.contains("#") || password.contains("#") || username.contains("$") || password.contains("$")){
 			onRespondRegister(false,"用户名和密码不得含有#或$");
 			return;
 		}
@@ -115,6 +115,10 @@ public abstract class OriginInterface {
 	final public void login(String username, String password){
 		if(!connect())
 			return;
+		if(username.contains("#") || password.contains("#") || username.contains("$") || password.contains("$")){
+			onRespondLogin(false, 0, "用户名和密码不得含有#或$");
+			return;
+		}
 		writeInSocket("LOGIN#" + username + "#" +password);
 	}
 
@@ -235,8 +239,10 @@ public abstract class OriginInterface {
 	 * 是否登陆成功
 	 * @param score
 	 * 玩家的分数
+	 * @param reason
+	 * 登陆失败的原因
 	 */
-	abstract public void onRespondLogin(boolean ifLogined, int score);
+	abstract public void onRespondLogin(boolean ifLogined, int score, String reason);
 
 	/**
 	 * 当收到请求各游戏桌状态响应<br>
