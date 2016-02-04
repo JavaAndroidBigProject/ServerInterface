@@ -47,6 +47,11 @@ public class Sandbox {
 		// 但这种错误在实际使用阶段不应该发生,
 		// 这里要是抛出异常,服务端很难办,
 		// 如果真的发生了也是客户端的责任,服务端不买单
+		assert(row >= 0 && row < MATRIX_SIZE);
+		assert(col >= 0 && col < MATRIX_SIZE);
+		assert(Player.BLACK.equals(who) || Player.WHITE.equals(who));
+		assert(movements.isEmpty() && Player.BLACK.equals(who) || !movements.peek().who.equals(who));
+
 		movements.add(new Movement(who, row, col));
 		return 	getWinner().equals(Player.UNKNOWN);
 	}
@@ -100,14 +105,3 @@ public class Sandbox {
 	}
 }
 
-class Movement{
-	public Movement(Sandbox.Player who, int row, int col) {
-		this.who = who;
-		this.row = row;
-		this.col = col;
-	}
-
-	public Sandbox.Player who;
-	public int row;
-	public int col;
-}
