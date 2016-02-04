@@ -41,12 +41,8 @@ public class TableInfo {
 	 */
 	public TableInfo(int id, String play1Name, int play1Score, String play2Name, int play2Score){
 		this.id = id;
-		player1 = new PlayerInfo();
-		player1.name = play1Name;
-		player1.score = play1Score;
-		player2 = new PlayerInfo();
-		player2.name = play2Name;
-		player2.score = play2Score;
+		player1 = new PlayerInfo(play1Name, play1Score);
+		player2 = new PlayerInfo(play2Name, play2Score);
 	}
 
 	/**

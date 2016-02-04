@@ -15,4 +15,16 @@ public class PlayerInfo {
 	 * 暂定赢一盘加2分,输一盘减1分,平局得1分
 	 */
 	public int score;
+
+	/**
+	 * 构造函数
+	 * @param name
+	 * 用户名
+	 * @param score
+	 * 分数
+	 */
+	public PlayerInfo(String name, int score) {
+		this.name = name;
+		this.score = score;
+	}
 }

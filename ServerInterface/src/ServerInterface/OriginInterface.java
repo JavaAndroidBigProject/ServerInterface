@@ -266,8 +266,7 @@ public abstract class OriginInterface {
 
 	/**
 	 * 当所在游戏桌状态变化<br>
-	 * 服务器返回 ON_TABLE_CHANGE#还没想好
-	 * TODO:还没想好
+	 * 服务器返回 ON_TABLE_CHANGE#对手用户名#对手分数#自己是否举手#对手是否举手#游戏是否进行中#棋盘的逻辑数组#自己是否执黑子#是否轮到自己下
 	 * @param opponentInfo
 	 * 对手信息
 	 * @param ifMyHandUp
