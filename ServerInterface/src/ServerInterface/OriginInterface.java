@@ -99,6 +99,12 @@ public abstract class OriginInterface {
 			onRespondRegister(false,"用户名和密码不得含有#或$");
 			return;
 		}
+
+		if(username.equals("empty")){
+			onRespondRegister(false,"用户名不可以是empty");
+			return;
+		}
+
 		if(!connect())
 			return;
 		writeInSocket("REGISTER#" + username + "#" +password);
