@@ -336,10 +336,8 @@ public abstract class OriginInterface {
 
 	/**
 	 * 当请求退出游戏桌响应<br>
-	 * 服务器返回 ON_RESPOND_QUIT_TABLE#退出游戏桌是否成功
-	 * @param ifAgree
-	 * 退出游戏桌是否成功
+	 * 服务器返回 ON_RESPOND_QUIT_TABLE
 	 */
-	abstract public void onRespondQuitTable(boolean ifAgree);
+	abstract public void onRespondQuitTable();
 
 }

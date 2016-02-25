@@ -65,7 +65,7 @@ class ListenThread extends Thread{
 						originInterface.onReceiveMessage(commands[1]);
 						break;
 					case "ON_RESPOND_QUIT_TABLE":
-						originInterface.onRespondQuitTable(Boolean.parseBoolean(commands[1]));
+						originInterface.onRespondQuitTable();
 						break;
 					default:
 						throw new Exception("Wrong command:" + commandsLine);
